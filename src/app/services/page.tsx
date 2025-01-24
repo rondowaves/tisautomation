@@ -6,92 +6,115 @@ import Link from 'next/link';
 const ServicesPage = () => {
   const allServices = [
     {
-      title: 'Automatisation Industrielle',
-      description: 'Solutions complètes d\'automatisation pour optimiser vos processus industriels',
+      title: 'Installation d\'Usines',
+      description: 'Solutions clés en main pour l\'installation complète d\'usines industrielles',
+      image: '/images/services/factory-installation.jpg',
+      features: [
+        'Conception et étude préalable',
+        'Installation d\'équipements',
+        'Mise en service et tests',
+        'Maintenance post-installation'
+      ],
+      link: '/services/installation-usines'
+    },
+    {
+      title: 'Systèmes Intelligents',
+      description: 'Solutions de contrôle d\'accès et systèmes intelligents pour l\'industrie',
+      image: '/images/services/smart-systems.jpeg',
+      features: [
+        'Automatisation avancée',
+        'Gestion énergétique',
+        'Maintenance prédictive',
+        'Contrôle d\'accès'
+      ],
+      link: '/services/systemes-intelligents'
+    },
+    {
+      title: 'Mécanique Générale',
+      description: 'Expertise multisectorielle en mécanique industrielle',
+      image: '/images/services/mechanical.jpg',
+      features: [
+        'Cimenteries',
+        'Agro-industrie',
+        'Industrie portuaire',
+        'Mines et carrières'
+      ],
+      link: '/services/mecanique-generale'
+    },
+    {
+      title: 'Énergie Industrielle',
+      description: 'Solutions complètes pour la production et maintenance d\'énergie',
+      image: '/images/services/energy.jpg',
+      features: [
+        'Groupes électrogènes',
+        'Énergie solaire',
+        'Maintenance 24/7',
+        'Solutions hybrides'
+      ],
+      link: '/services/energie-industrielle'
+    },
+    {
+      title: 'Électricité Industrielle',
+      description: 'Excellence technique en solutions électriques industrielles',
+      image: '/images/services/energy.jpg',
+      features: [
+        'Installation électrique',
+        'Distribution électrique',
+        'Maintenance préventive',
+        'Mise en conformité'
+      ],
+      link: '/services/electricite-industrielle'
+    },
+    {
+      title: 'Automatisme Industriel',
+      description: 'Expertise avancée en automatisation industrielle',
       image: '/images/services/automation.jpg',
       features: [
-        'Programmation PLC',
+        'Programmation API/PLC',
         'Systèmes SCADA',
-        'Contrôle de processus',
-        'Integration IoT'
-      ]
+        'Motion control',
+        'Cyber-sécurité'
+      ],
+      link: '/services/automatisme-industriel'
     },
     {
-      title: 'Contrôle de Processus',
-      description: 'Systèmes de contrôle avancés pour une gestion précise de vos processus',
-      image: '/images/services/process-control.jpg',
+      title: 'Bureau d\'Études',
+      description: 'Solutions d\'ingénierie sur mesure pour vos projets industriels',
+      image: '/images/services/engineering.png',
       features: [
-        'Contrôle de température',
-        'Régulation de pression',
-        'Contrôle de débit',
-        'Monitoring en temps réel'
-      ]
-    },
-    {
-      title: 'Maintenance Industrielle',
-      description: 'Services de maintenance préventive et corrective pour vos équipements',
-      image: '/images/services/maintenance.jpg',
-      features: [
-        'Maintenance prédictive',
-        'Réparation d\'urgence',
-        'Inspection régulière',
-        'Optimisation des performances'
-      ]
-    },
-    {
-      title: 'Intégration de Systèmes',
-      description: 'Solutions d\'intégration complètes pour vos systèmes industriels',
-      image: '/images/services/integration.jpeg',
-      features: [
-        'Intégration de systèmes',
-        'Communication industrielle',
-        'Réseaux industriels',
-        'Solutions sur mesure'
-      ]
-    },
-    {
-      title: 'Vente d\'Équipements',
-      description: 'Fourniture d\'équipements industriels de haute qualité',
-      image: '/images/services/sales.jpg',
-      features: [
-        'Équipements d\'automatisation',
-        'Composants électriques',
-        'Pièces de rechange',
-        'Conseil technique'
-      ]
-    },
-    {
-      title: 'Support Technique',
-      description: 'Support technique et formation pour vos équipes',
-      image: '/images/services/Support.webp',
-      features: [
-        'Support 24/7',
-        'Formation technique',
-        'Assistance à distance',
-        'Documentation technique'
-      ]
+        'Études techniques',
+        'Ingénierie sur mesure',
+        'Assistance projet',
+        'Innovation industrielle'
+      ],
+      link: '/services/bureau-etudes'
     }
   ];
 
   return (
-    <main className="pt-20">
-      {/* Hero Section avec image de fond d'automatisation */}
-      <section className="relative h-[60vh] flex items-center justify-center">
+    <main className="min-h-screen">
+      {/* Hero Section */}
+      <section className="relative h-[60vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <Image
             src="/images/services/automation.jpg"
             alt="Services Industriels"
             fill
-            className="object-cover"
+            className="object-cover brightness-90"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-primary/70"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-900/80 via-primary/70 to-primary/60" />
         </div>
         <div className="relative container mx-auto px-4 text-center text-white">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Nos Services</h1>
-          <p className="text-xl max-w-2xl mx-auto">
-            Des solutions d'automatisation innovantes pour l'industrie moderne
-          </p>
+          <div className="space-y-6">
+            <h1 className="text-5xl md:text-6xl font-bold">
+              Nos Services
+            </h1>
+            <div className="h-1 w-32 bg-white/30 mx-auto rounded-full" />
+            <p className="text-xl md:text-2xl max-w-3xl mx-auto font-light">
+              Des solutions d'automatisation innovantes pour l'industrie moderne
+            </p>
+          </div>
         </div>
       </section>
 
@@ -135,7 +158,7 @@ const ServicesPage = () => {
                       ))}
                     </ul>
                     <Link 
-                      href={`/contact?service=${encodeURIComponent(service.title)}`}
+                      href={service.link}
                       className="inline-flex items-center text-secondary hover:text-white transition-colors duration-300"
                     >
                       <span className="mr-2">En savoir plus</span>

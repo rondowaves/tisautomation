@@ -31,14 +31,22 @@ const Footer = () => {
           <div>
             <h3 className="text-[#FFA500] font-semibold mb-6 text-lg">Liens Rapides</h3>
             <ul className="space-y-3">
-              {['Accueil', 'À propos', 'Services', 'Contact'].map((item, index) => (
+              {[
+                { name: 'Accueil', path: '/' },
+                { name: 'À propos', path: '/about' },
+                { name: 'Services', path: '/services' },
+                { name: 'Installation d\'Usines', path: '/services/installation-usines' },
+                { name: 'Systèmes Intelligents', path: '/services/systemes-intelligents' },
+                { name: 'Bureau d\'Études', path: '/services/bureau-etudes' },
+                { name: 'Contact', path: '/contact' }
+              ].map((item, index) => (
                 <li key={index}>
                   <Link 
-                    href={item === 'Accueil' ? '/' : `/${item.toLowerCase().replace(' ', '-')}`}
+                    href={item.path}
                     className="text-gray-200 hover:text-[#40E0D0] transition-colors duration-300 flex items-center group"
                   >
                     <span className="w-2 h-2 rounded-full bg-[#40E0D0]/20 group-hover:bg-[#40E0D0] mr-2 transition-colors duration-300"></span>
-                    {item}
+                    {item.name}
                   </Link>
                 </li>
               ))}
@@ -49,6 +57,7 @@ const Footer = () => {
           <div>
             <h3 className="text-[#FFA500] font-semibold mb-6 text-lg">Contact</h3>
             <div className="space-y-4">
+              {/* Adresse */}
               <div className="flex items-start space-x-3">
                 <div className="bg-[#40E0D0]/10 p-2 rounded-lg mt-1">
                   <svg className="w-4 h-4 text-[#40E0D0]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -57,11 +66,28 @@ const Footer = () => {
                   </svg>
                 </div>
                 <p className="text-gray-200 text-sm">
-                  Rond point 4e, avant marché sandaga,<br />
-                  IMMEUBLE VIOLET 2e etage porte 206<br />
-                  Douala - 23700 - Cameroun
+                  Maison blanche Bepanda<br />
+                  24019 DOUALA-AKWA<br />
+                  Immeuble MAGOUKA, Douala
                 </p>
               </div>
+
+              {/* Email */}
+              <a 
+                href="mailto:info@tisautomation.com"
+                className="flex items-center space-x-3 group hover:bg-[#40E0D0]/5 p-2 rounded-lg transition-colors duration-300"
+              >
+                <div className="bg-[#40E0D0]/10 p-2 rounded-lg">
+                  <svg className="w-4 h-4 text-[#40E0D0]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <span className="text-gray-200 group-hover:text-[#40E0D0] transition-colors duration-300">
+                  info@tisautomation.com
+                </span>
+              </a>
+
+              {/* Téléphone */}
               <a 
                 href="tel:+237655696304"
                 className="flex items-center space-x-3 group hover:bg-[#40E0D0]/5 p-2 rounded-lg transition-colors duration-300"
@@ -71,9 +97,14 @@ const Footer = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
                 </div>
-                <span className="text-gray-200 group-hover:text-[#40E0D0] transition-colors duration-300">
-                  (+237) 655 69 63 04
-                </span>
+                <div className="flex flex-col">
+                  <span className="text-gray-200 group-hover:text-[#40E0D0] transition-colors duration-300">
+                    (+237) 655 69 63 04
+                  </span>
+                  <span className="text-gray-400 text-sm">
+                    Standard
+                  </span>
+                </div>
               </a>
             </div>
           </div>
@@ -105,21 +136,11 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Barre de copyright */}
-        <div className="mt-16 pt-8 border-t border-white/10">
-          <div className="flex justify-between items-center flex-wrap gap-4">
-            <p className="text-gray-300 text-sm">
-              © {new Date().getFullYear()} TIS Automation. Tous droits réservés.
-            </p>
-            <div className="flex items-center space-x-4">
-              <Link href="/privacy" className="text-gray-300 hover:text-[#40E0D0] text-sm transition-colors duration-300">
-                Politique de confidentialité
-              </Link>
-              <Link href="/terms" className="text-gray-300 hover:text-[#40E0D0] text-sm transition-colors duration-300">
-                Conditions d'utilisation
-              </Link>
-            </div>
-          </div>
+        {/* Copyright */}
+        <div className="mt-12 pt-8 border-t border-white/10">
+          <p className="text-center text-gray-400 text-sm">
+            {new Date().getFullYear()} TIS Automation. Tous droits réservés.
+          </p>
         </div>
       </div>
     </footer>

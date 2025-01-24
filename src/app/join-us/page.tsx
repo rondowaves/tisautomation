@@ -17,28 +17,28 @@ const JoinUsPage = () => {
   return (
     <main className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       {/* Hero Section avec Parallax */}
-      <section className="relative h-[500px] overflow-hidden">
+      <section className="relative h-[60vh] overflow-hidden">
         <div className="absolute inset-0 w-full h-full">
           <Image
-            src="/images/join-us-hero.jpg"
+            src="/images/hero/automation-2.jpg"
             alt="Rejoignez notre équipe"
             fill
             className="object-cover transform scale-110"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-secondary/90" />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/80 to-[#FFA500]/80" />
         </div>
         <div className="relative h-full flex items-center justify-center text-center text-white px-4">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="max-w-3xl"
+            className="max-w-3xl space-y-8"
           >
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">
+            <h1 className="text-5xl md:text-6xl font-bold">
               Rejoignez Notre Équipe
             </h1>
-            <p className="text-xl md:text-2xl text-gray-100">
+            <p className="text-xl md:text-2xl text-gray-100 max-w-2xl mx-auto">
               Envoyez-nous votre candidature spontanée et faites partie de notre aventure
             </p>
           </motion.div>
@@ -118,56 +118,6 @@ const JoinUsPage = () => {
                 <ApplicationForm />
               </div>
             </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Section FAQ */}
-      <section className="py-20">
-        <div className="container mx-auto px-4 max-w-4xl">
-          <h2 className="text-3xl font-bold text-center mb-12">Questions Fréquentes</h2>
-          <motion.div
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-            variants={{
-              initial: { opacity: 0 },
-              animate: { opacity: 1, transition: { staggerChildren: 0.15 } }
-            }}
-            className="space-y-6"
-          >
-            <motion.div
-              variants={fadeInUp}
-              className="bg-white p-6 rounded-xl shadow-md"
-            >
-              <h3 className="text-xl font-semibold mb-2">Quel est le processus de recrutement ?</h3>
-              <p className="text-gray-600">
-                Notre processus comprend généralement un premier entretien téléphonique, suivi d'un entretien technique 
-                et d'un entretien final avec l'équipe. Nous nous efforçons de rendre le processus rapide et transparent.
-              </p>
-            </motion.div>
-
-            <motion.div
-              variants={fadeInUp}
-              className="bg-white p-6 rounded-xl shadow-md"
-            >
-              <h3 className="text-xl font-semibold mb-2">Quels sont les avantages proposés ?</h3>
-              <p className="text-gray-600">
-                Nous offrons un package compétitif incluant une mutuelle, des RTT, du télétravail partiel, 
-                et des opportunités de formation continue.
-              </p>
-            </motion.div>
-
-            <motion.div
-              variants={fadeInUp}
-              className="bg-white p-6 rounded-xl shadow-md"
-            >
-              <h3 className="text-xl font-semibold mb-2">Comment se passe l'intégration ?</h3>
-              <p className="text-gray-600">
-                Nous avons un programme d'onboarding structuré pour vous aider à vous intégrer rapidement. 
-                Vous serez accompagné par un mentor dédié pendant vos premiers mois.
-              </p>
-            </motion.div>
           </motion.div>
         </div>
       </section>

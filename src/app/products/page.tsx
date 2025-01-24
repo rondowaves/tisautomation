@@ -6,6 +6,7 @@ import { ChevronDown, Search, Mail, X, Box, Package2,
 import { type Product, cleanedCategories } from '@/data/products';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { getProductImageUrl } from '@/utils/image';
 
 interface SubCategory {
   id: string;
@@ -118,7 +119,7 @@ const ProductPage = () => {
           className="absolute inset-0"
         >
           <Image
-            src="/images/slides/automation2.jpg"
+            src="/images/hero/automation-3.jpg"
             alt="TIS Automation Products"
             fill
             className="object-cover"
@@ -267,6 +268,15 @@ const ProductPage = () => {
                   transition={{ duration: 0.3, delay: index * 0.1 }}
                   className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-all duration-200 group"
                 >
+                  <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
+                    <Image
+                      src={getProductImageUrl(product.image)}
+                      alt={product.name}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                  </div>
                   <div className="p-4">
                     <div className="flex justify-between items-start mb-3">
                       <Package2 size={24} className="text-primary/60 group-hover:text-primary transition-colors duration-200" />

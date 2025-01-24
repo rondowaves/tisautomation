@@ -25,13 +25,13 @@ const ContactSection = () => {
                 <h3 className="font-semibold text-lg text-primary">Notre adresse</h3>
               </div>
               <p className="text-gray-600">
-                Rond point 4e, avant marché sandaga,<br />
-                IMMEUBLE VIOLET 2e etage porte 206<br />
-                Douala - 23700 - Cameroun
+                Maison blanche Bepanda<br />
+                24019 DOUALA-AKWA<br />
+                Immeuble MAGOUKA, Douala
               </p>
             </div>
 
-            {/* Téléphone */}
+            {/* Contact */}
             <div className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300">
               <div className="flex items-center space-x-4 mb-4">
                 <div className="bg-primary/10 p-3 rounded-lg">
@@ -39,9 +39,16 @@ const ContactSection = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
                 </div>
-                <h3 className="font-semibold text-lg text-primary">Téléphone</h3>
+                <h3 className="font-semibold text-lg text-primary">Contact</h3>
               </div>
-              <p className="text-gray-600">(+237) 655 69 63 04 Standard</p>
+              <div className="space-y-2">
+                <a href="tel:+237655696304" className="block text-gray-600 hover:text-primary transition-colors duration-300">
+                  (+237) 655 69 63 04 <span className="text-sm text-gray-500">Standard</span>
+                </a>
+                <a href="mailto:info@tisautomation.com" className="block text-gray-600 hover:text-primary transition-colors duration-300">
+                  info@tisautomation.com
+                </a>
+              </div>
             </div>
 
             {/* Heures d'ouverture */}
