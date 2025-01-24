@@ -280,40 +280,44 @@ const outillage_mesure = {
 
 const maintenance = {
   filtration: {
-    huile: [
-      {
-        id: "P10255",
-        name: "FITRE A HUILE",
-        reference: "1560B87305",
-        specs: {
-          alternative_references: ["MICRO MD013661", "LF3369", "FLEETGUARD"]
+    huile: {
+      products: [
+        {
+          id: "P10255",
+          name: "FITRE A HUILE",
+          reference: "1560B87305",
+          specs: {
+            alternative_references: ["MICRO MD013661", "LF3369", "FLEETGUARD"]
+          },
+          price: 18500,
+          active: true
         },
-        price: 18500,
-        active: true
-      },
-      {
-        id: "P10264",
-        name: "FILTRE A HUILE",
-        specs: {
-          reference: ["1560B87305", "MICRO MD013661", "LF3369", "FLEETGUARD"]
-        },
-        price: 265000,
-        active: true
-      }
-    ],
-    carburant: [
-      {
-        id: "P10258",
-        name: "FILTRE A GAS OIL",
-        reference: "3005828",
-        specs: {
-          alternative_reference: "FF5048",
-          brand: "FLEETGUARD"
-        },
-        price: 36420,
-        active: true
-      }
-    ]
+        {
+          id: "P10264",
+          name: "FILTRE A HUILE",
+          specs: {
+            reference: ["1560B87305", "MICRO MD013661", "LF3369", "FLEETGUARD"]
+          },
+          price: 265000,
+          active: true
+        }
+      ]
+    },
+    carburant: {
+      products: [
+        {
+          id: "P10258",
+          name: "FILTRE A GAS OIL",
+          reference: "3005828",
+          specs: {
+            alternative_reference: "FF5048",
+            brand: "FLEETGUARD"
+          },
+          price: 36420,
+          active: true
+        }
+      ]
+    }
   },
   produits: {
     nettoyants: [
@@ -333,117 +337,127 @@ const maintenance = {
       }
     ]
   },
-  pieces_detachees: [
-    {
-      id: "P10167A",
-      name: "ADAPTATEUR USB SIEMENS",
-      reference: "6GK1571-0BA00-0AA0",
-      price: 350000,
-      active: true,
-      specs: {}
-    }
-  ],
-  consommables: [
-    {
-      id: "P10264",
-      name: "FILTRE A HUILE",
-      specs: {
-        reference: ["1560B87305", "MICRO MD013661", "LF3369", "FLEETGUARD"]
-      },
-      price: 265000,
-      active: true
-    }
-  ]
-};
-
-const services = {
-  installation: [
-    {
-      id: "P10219",
-      name: "MISE EN SERVICE IMPRIMEUR SAC",
-      price: 0,
-      active: true,
-      specs: {}
-    }
-  ],
-  maintenance: [
-    {
-      id: "P10200",
-      name: "FRAIS DE PRESTATION",
-      specs: {
-        included: [
-          "MOBILISATION/DEMOBILISATION RH",
-          "MOBILISATION/DEMOBILISATION MATERIEL",
-          "MAIN D'OEUVRE"
-        ]
-      },
-      price: 100000,
-      active: true
-    }
-  ]
-};
-
-const automatisme_controle = {
-  automates: [
-    {
-      id: "P10167",
-      name: "ADAPTATEUR USB SIEMENS",
-      image: "adaptateur-usb-siemens.jpg",
-      reference: "6GK1571-0BA00-0AA0",
-      price: 350000,
-      active: true,
-      specs: {}
-    }
-  ],
-  capteurs: [
-    {
-      id: "P10168",
-      name: "FIN DE COURSE SIEMENS",
-      reference: "38E5112-0CT11",
-      price: 132699,
-      active: true,
-      specs: {}
-    },
-    {
-      id: "P10169",
-      name: "MODULE DE DETECTION DE COURANT SIEMENS",
-      reference: "34UF7100-1AA00-0",
-      price: 186375,
-      active: true,
-      specs: {}
-    }
-  ],
-  electrovannes: {
-    pneumatiques: [
+  pieces_detachees: {
+    products: [
       {
-        id: "P10290",
-        name: "ELECTROVANNE PAKER HANNIFIN",
-        reference: "341N03",
-        price: 389150,
-        active: true,
-        specs: {}
-      },
-      {
-        id: "P10292",
-        name: "SOLENOIRE ELECTROVANNE",
-        reference: "CI2/2440210780",
-        price: 160000,
+        id: "P10167A",
+        name: "ADAPTATEUR USB SIEMENS",
+        reference: "6GK1571-0BA00-0AA0",
+        price: 350000,
         active: true,
         specs: {}
       }
     ]
   },
-  piezoelectriques: [
-    {
-      id: "P10055",
-      name: "CONTACT -ZBE-102",
-      reference: "ZBE-102",
-      brand: "TELETECNIQUE",
-      price: 0,
-      active: true,
-      specs: {}
+  consommables: {
+    products: [
+      {
+        id: "P10264",
+        name: "FILTRE A HUILE",
+        specs: {
+          reference: ["1560B87305", "MICRO MD013661", "LF3369", "FLEETGUARD"]
+        },
+        price: 265000,
+        active: true
+      }
+    ]
+  }
+};
+
+const services = {
+  prestations: {
+    installation: [
+      {
+        id: "S001",
+        name: "Installation Standard",
+        price: 50000,
+        active: true,
+        specs: {}
+      }
+    ],
+    maintenance: [
+      {
+        id: "S002",
+        name: "Maintenance Préventive",
+        specs: {
+          included: ["Inspection", "Nettoyage", "Calibration"]
+        },
+        price: 75000,
+        active: true
+      }
+    ]
+  }
+};
+
+const automatisme_controle = {
+  automates: {
+    products: [
+      {
+        id: "P10167",
+        name: "ADAPTATEUR USB SIEMENS",
+        image: "adaptateur-usb-siemens.jpg",
+        reference: "6GK1571-0BA00-0AA0",
+        price: 350000,
+        active: true,
+        specs: {}
+      }
+    ]
+  },
+  capteurs: {
+    products: [
+      {
+        id: "P10168",
+        name: "FIN DE COURSE SIEMENS",
+        reference: "38E5112-0CT11",
+        price: 132699,
+        active: true,
+        specs: {}
+      },
+      {
+        id: "P10169",
+        name: "MODULE DE DETECTION DE COURANT SIEMENS",
+        reference: "34UF7100-1AA00-0",
+        price: 186375,
+        active: true,
+        specs: {}
+      }
+    ]
+  },
+  electrovannes: {
+    pneumatiques: {
+      products: [
+        {
+          id: "P10290",
+          name: "ELECTROVANNE PAKER HANNIFIN",
+          reference: "341N03",
+          price: 389150,
+          active: true,
+          specs: {}
+        },
+        {
+          id: "P10292",
+          name: "SOLENOIRE ELECTROVANNE",
+          reference: "CI2/2440210780",
+          price: 160000,
+          active: true,
+          specs: {}
+        }
+      ]
     }
-  ]
+  },
+  piezoelectriques: {
+    products: [
+      {
+        id: "P10055",
+        name: "CONTACT -ZBE-102",
+        reference: "ZBE-102",
+        brand: "TELETECNIQUE",
+        price: 0,
+        active: true,
+        specs: {}
+      }
+    ]
+  }
 };
 
 const equipement_industriel = {
@@ -1249,37 +1263,41 @@ const distribution_electrique = {
       }
     ]
   },
-  ups: [
-    {
-      id: "P10274",
-      name: "UPS NETWORK",
-      price: 11899602,
-      active: true,
-      specs: {}
-    }
-  ]
-};
-
-const cablage_connexion = {
-  cables: {
-    industriels: [
+  ups: {
+    standard: [
       {
-        id: "P10111",
-        name: "CABLE INDUSTRIEL-R2V 3X4MM",
-        specs: {
-          length: "100M"
-        },
-        price: 265200,
-        active: true
-      },
-      {
-        id: "P10129",
-        name: "CABLE INDUSTRIEL-R2V 3X2.5mm² T",
-        price: 1885,
+        id: "P10274",
+        name: "UPS NETWORK",
+        price: 11899602,
         active: true,
         specs: {}
       }
     ]
+  }
+};
+
+const cablage_connexion = {
+  cables: {
+    industriels: {
+      products: [
+        {
+          id: "P10111",
+          name: "CABLE INDUSTRIEL-R2V 3X4MM",
+          specs: {
+            length: "100M"
+          },
+          price: 265200,
+          active: true
+        },
+        {
+          id: "P10129",
+          name: "CABLE INDUSTRIEL-R2V 3X2.5mm² T",
+          price: 1885,
+          active: true,
+          specs: {}
+        }
+      ]
+    }
   },
   connectique: {
     bornes: [
@@ -1324,30 +1342,32 @@ const cablage_connexion = {
       }
     ]
   },
-  rallonges: [
-    {
-      id: "P10179",
-      name: "RALONGE ELECTRIQUE ORANGE",
-      specs: {
-        current: "16A",
-        power: "3680W",
-        length: "10m",
-        type: "2P+T"
+  rallonges: {
+    standard: [
+      {
+        id: "P10179",
+        name: "RALONGE ELECTRIQUE ORANGE",
+        specs: {
+          current: "16A",
+          power: "3680W",
+          length: "10m",
+          type: "2P+T"
+        },
+        price: 35000,
+        active: true
       },
-      price: 35000,
-      active: true
-    },
-    {
-      id: "P10144",
-      name: "RALLONGE ELECTRIQUE SCHWABE ALLEMAGNE",
-      specs: {
-        outlets: "6",
-        protection: "PARAFOUDRE"
-      },
-      price: 20000,
-      active: true
-    }
-  ]
+      {
+        id: "P10144",
+        name: "RALLONGE ELECTRIQUE SCHWABE ALLEMAGNE",
+        specs: {
+          outlets: "6",
+          protection: "PARAFOUDRE"
+        },
+        price: 20000,
+        active: true
+      }
+    ]
+  }
 };
 
 // Product categories definition
