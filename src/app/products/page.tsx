@@ -1,23 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ChevronDown, Search, Mail, X, Box, Package2, 
-         Cpu, Wrench, Zap, Cable, Settings, Shield } from 'lucide-react';
+import { ChevronDown, Search, Mail, X, Box, Package2, Menu,
+         Cpu, Wrench, Zap, Cable, Settings, Shield, ChevronLeft, ChevronRight, ChevronUp } from 'lucide-react';
 import { type Product, cleanedCategories } from '@/data/products';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { getProductImageUrl } from '@/utils/image';
-
-interface SubCategory {
-  id: string;
-  name: string;
-}
-
-interface Category {
-  id: string;
-  name: string;
-  subCategories: SubCategory[];
-}
 
 const ProductPage = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -25,6 +13,8 @@ const ProductPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [cart, setCart] = useState<string[]>([]);
   const [showQuoteForm, setShowQuoteForm] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const toggleCategory = (categoryId: string) => {
     if (selectedCategory === categoryId) {
@@ -108,10 +98,52 @@ const ProductPage = () => {
 
   const filteredProducts = getFilteredProducts();
 
+  const ProductImage = ({ product }: { product: Product }) => {
+    const [imageError, setImageError] = useState(false);
+    
+    // Fonction pour obtenir le bon chemin d'image en fonction du produit
+    const getImagePath = (product: Product) => {
+      if (!product.image) return '/images/products/default-product.jpg';
+
+      // Map des images disponibles avec leurs différentes extensions possibles
+      const availableImages: { [key: string]: string } = {
+        'adaptateur-usb-siemens': '/images/products/adaptateur-usb-siemens.jpg',
+        'coffret-separation': '/images/products/coffret-separation.jpg',
+        'moteur-aluminium': '/images/products/moteur-aluminium.jpg',
+        'projecteur-led-1000w': '/images/products/projecteur-led-1000w.jpg',
+        'reglette-led-ip65': '/images/products/reglette-led-ip65.jpg'
+      };
+
+      // Nettoyer le nom de l'image (enlever l'extension et mettre en minuscules)
+      const imageName = product.image.toLowerCase().replace(/\.(jpg|jpeg|png)$/, '');
+      
+      // Vérifier si l'image existe dans notre map
+      if (availableImages[imageName]) {
+        return availableImages[imageName];
+      }
+      
+      // Si l'image n'est pas trouvée, retourner l'image par défaut
+      return '/images/products/default-product.jpg';
+    };
+    
+    return (
+      <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
+        <Image
+          src={imageError ? '/images/products/default-product.jpg' : getImagePath(product)}
+          alt={product.name}
+          fill
+          className="object-cover group-hover:scale-105 transition-transform duration-300"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          onError={() => setImageError(true)}
+        />
+      </div>
+    );
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="relative h-[40vh] flex items-center justify-center overflow-hidden">
+      <section className="relative h-[30vh] md:h-[35vh] flex items-center justify-center overflow-hidden mt-14 md:mt-0">
         <motion.div
           initial={{ scale: 1.1 }}
           animate={{ scale: 1 }}
@@ -122,10 +154,10 @@ const ProductPage = () => {
             src="/images/hero/automation-3.jpg"
             alt="TIS Automation Products"
             fill
-            className="object-cover"
+            className="object-cover brightness-[0.6]"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-black/60" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/40" />
         </motion.div>
         <div className="relative container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
@@ -133,7 +165,7 @@ const ProductPage = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="text-4xl font-bold text-white mb-6"
+              className="text-2xl md:text-4xl font-bold text-white mb-4 md:mb-6 block"
             >
               Catalogue des équipements
             </motion.h1>
@@ -141,125 +173,110 @@ const ProductPage = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="relative max-w-2xl mx-auto"
+              className="relative max-w-2xl mx-auto px-4"
             >
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <div className="absolute inset-y-0 left-6 flex items-center pointer-events-none">
                 <Search className="h-5 w-5 text-gray-400" />
               </div>
               <input
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="block w-full pl-10 pr-3 py-3 bg-white/10 border border-white/20 
-                       rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 
-                       focus:ring-primary/50 focus:border-transparent shadow-lg"
-                placeholder="Rechercher par nom, référence ou spécification..."
+                className="block w-full pl-10 pr-3 py-2.5 bg-white/10 border border-white/20 
+                       rounded-lg text-white placeholder-gray-300 focus:outline-none focus:ring-2 
+                       focus:ring-primary/50 focus:border-transparent shadow-lg text-sm md:text-base"
+                placeholder="Rechercher par nom, référence..."
               />
             </motion.div>
           </div>
         </div>
       </section>
 
-      <div className="flex flex-1 bg-gray-50">
-        {/* Menu de gauche */}
-        <aside className="w-64 bg-white border-r border-gray-200">
-          <div className="p-4 border-b border-gray-200">
-            <h3 className="font-medium text-primary">Catégories</h3>
-          </div>
-          <nav className="p-2">
-            <div className="space-y-1">
-              {Object.entries(cleanedCategories).map(([categoryId, subCategories]) => {
-                let CategoryIcon = Box;
-                switch(categoryId.toLowerCase()) {
-                  case 'commande_controle':
-                    CategoryIcon = Cpu;
-                    break;
-                  case 'composants_mecaniques':
-                    CategoryIcon = Wrench;
-                    break;
-                  case 'installation_electrique':
-                    CategoryIcon = Zap;
-                    break;
-                  case 'cables':
-                    CategoryIcon = Cable;
-                    break;
-                  case 'equipement_electronique':
-                    CategoryIcon = Settings;
-                    break;
-                  case 'protection_electrique':
-                    CategoryIcon = Shield;
-                    break;
-                }
-
-                return (
-                  <motion.div 
-                    key={categoryId} 
-                    className="rounded-lg overflow-hidden"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <button
-                      onClick={() => toggleCategory(categoryId)}
-                      className={`w-full text-left flex items-center justify-between p-2.5 rounded-lg transition-colors ${
-                        selectedCategory === categoryId 
-                          ? 'bg-primary/10 text-primary font-medium' 
-                          : 'text-gray-600 hover:bg-gray-100'
-                      }`}
-                    >
-                      <div className="flex items-center gap-3">
-                        <CategoryIcon className={selectedCategory === categoryId ? 'text-primary' : 'text-gray-500'} size={18} />
-                        <span className="capitalize text-sm">{categoryId.replace(/_/g, ' ')}</span>
-                      </div>
-                      <ChevronDown
-                        className={`transform transition-transform duration-200 ${
-                          selectedCategory === categoryId ? 'rotate-180 text-primary' : 'text-gray-400'
-                        }`}
-                        size={14}
-                      />
-                    </button>
-                    <div
-                      className={`overflow-hidden transition-all duration-200 ease-in-out ${
-                        selectedCategory === categoryId ? 'max-h-96' : 'max-h-0'
-                      }`}
-                    >
-                      {Object.keys(subCategories).map((subCategoryId) => (
-                        <button
-                          key={subCategoryId}
-                          onClick={() => selectSubCategory(subCategoryId)}
-                          className={`w-full text-left flex items-center px-4 py-2 ml-3 text-sm ${
-                            selectedSubCategory === subCategoryId
-                              ? 'text-primary bg-primary/5 font-medium'
-                              : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-                          } rounded-md transition-colors capitalize`}
-                        >
-                          <span>{subCategoryId.replace(/_/g, ' ')}</span>
-                        </button>
-                      ))}
-                    </div>
-                  </motion.div>
-                );
-              })}
+      <div className="flex flex-col md:flex-row flex-1 bg-gray-50 relative">
+        {/* Menu de gauche - Mobile */}
+        <div className="md:hidden">
+          {/* En-tête des catégories */}
+          <div className="sticky top-0 z-20 bg-white border-b border-gray-200 shadow-sm">
+            <div className="p-4 flex justify-between items-center">
+              <h3 className="font-medium text-primary">Catégories</h3>
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="p-2 hover:bg-gray-100 rounded-lg text-gray-500 hover:text-primary transition-colors"
+              >
+                {isMobileMenuOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+              </button>
             </div>
-          </nav>
-        </aside>
+          </div>
+
+          {/* Menu déroulant des catégories */}
+          <div 
+            className={`
+              bg-white border-b border-gray-200 overflow-hidden transition-all duration-300
+              ${isMobileMenuOpen ? 'max-h-[70vh] opacity-100' : 'max-h-0 opacity-0'}
+            `}
+          >
+            <div className="p-4 overflow-y-auto">
+              <CategoryList 
+                selectedCategory={selectedCategory}
+                selectedSubCategory={selectedSubCategory}
+                toggleCategory={toggleCategory}
+                selectSubCategory={selectSubCategory}
+              />
+            </div>
+          </div>
+
+          {/* Nombre de produits - Mobile */}
+          <div className="bg-white border-b border-gray-200 px-4 py-3">
+            <div className="text-sm text-gray-500">
+              Nombre de produits filtrés : <span className="font-medium text-gray-900">{filteredProducts.length}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Menu de gauche - Desktop */}
+        <div className="hidden md:flex">
+          {/* Bouton toggle toujours visible */}
+          <button
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            className="h-16 px-2 bg-white border-r border-gray-200 text-gray-500 hover:text-primary transition-colors flex items-center"
+          >
+            {isSidebarOpen ? <ChevronLeft size={20} /> : <ChevronRight size={20} />}
+          </button>
+
+          {/* Sidebar */}
+          <aside className={`
+            bg-white border-r border-gray-200 sticky top-16 h-[calc(100vh-4rem)]
+            transition-all duration-300 ease-in-out overflow-hidden
+            ${isSidebarOpen ? 'w-72' : 'w-0'}
+          `}>
+            <div className="p-4 border-b border-gray-200">
+              <h3 className="font-medium text-primary">Catégories</h3>
+            </div>
+            <nav className="p-2 h-[calc(100vh-8rem)] overflow-y-auto">
+              <CategoryList 
+                selectedCategory={selectedCategory}
+                selectedSubCategory={selectedSubCategory}
+                toggleCategory={toggleCategory}
+                selectSubCategory={selectSubCategory}
+              />
+            </nav>
+          </aside>
+        </div>
 
         {/* Contenu principal */}
-        <main className="flex-1 overflow-auto">
-          {/* Info nombre de produits */}
-          <div className="border-b border-gray-200 bg-white shadow-sm">
-            <div className="max-w-7xl mx-auto px-6 py-4">
-              <div className="flex items-center justify-between">
-                <p className="text-sm text-gray-600">
-                  Nombre de produits filtrés : <span className="font-medium text-primary">{filteredProducts.length}</span>
-                </p>
+        <main className="flex-1 min-h-0 bg-gray-50">
+          {/* Info nombre de produits - Desktop */}
+          <div className="hidden md:block sticky top-16 z-10 border-b border-gray-200 bg-white/80 backdrop-blur-sm">
+            <div className="px-4 md:px-6 py-3">
+              <div className="text-sm text-gray-500">
+                Nombre de produits filtrés : <span className="font-medium text-gray-900">{filteredProducts.length}</span>
               </div>
             </div>
           </div>
 
-          {/* Grille de produits */}
-          <div className="max-w-7xl mx-auto p-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Grid des produits */}
+          <div className="p-4 md:p-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
               {filteredProducts.map((product, index) => (
                 <motion.div 
                   key={product.id}
@@ -268,15 +285,7 @@ const ProductPage = () => {
                   transition={{ duration: 0.3, delay: index * 0.1 }}
                   className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-all duration-200 group"
                 >
-                  <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
-                    <Image
-                      src={getProductImageUrl(product.image)}
-                      alt={product.name}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-300"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    />
-                  </div>
+                  <ProductImage product={product} />
                   <div className="p-4">
                     <div className="flex justify-between items-start mb-3">
                       <Package2 size={24} className="text-primary/60 group-hover:text-primary transition-colors duration-200" />
@@ -323,7 +332,7 @@ const ProductPage = () => {
 
       {/* Panier flottant */}
       {cart.length > 0 && (
-        <div className="fixed bottom-6 right-6 bg-white rounded-xl shadow-lg p-5 z-50 border border-gray-200">
+        <div className="fixed bottom-4 right-4 z-50">
           <div className="flex items-center justify-between gap-6">
             <span className="font-medium text-[#0B1C33]">Produits sélectionnés: {cart.length}</span>
             <button 
@@ -383,5 +392,83 @@ const ProductPage = () => {
     </div>
   );
 };
+
+// Composant pour la liste des catégories
+const CategoryList = ({ selectedCategory, selectedSubCategory, toggleCategory, selectSubCategory }) => (
+  <div className="space-y-1">
+    {Object.entries(cleanedCategories).map(([categoryId, subCategories]) => {
+      let CategoryIcon = Box;
+      switch(categoryId.toLowerCase()) {
+        case 'commande_controle':
+          CategoryIcon = Cpu;
+          break;
+        case 'composants_mecaniques':
+          CategoryIcon = Wrench;
+          break;
+        case 'installation_electrique':
+          CategoryIcon = Zap;
+          break;
+        case 'cables':
+          CategoryIcon = Cable;
+          break;
+        case 'equipement_electronique':
+          CategoryIcon = Settings;
+          break;
+        case 'protection_electrique':
+          CategoryIcon = Shield;
+          break;
+      }
+
+      return (
+        <motion.div 
+          key={categoryId} 
+          className="rounded-lg overflow-hidden"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          <button
+            onClick={() => toggleCategory(categoryId)}
+            className={`w-full text-left flex items-center justify-between p-2.5 rounded-lg transition-colors ${
+              selectedCategory === categoryId 
+                ? 'bg-primary/10 text-primary font-medium' 
+                : 'text-gray-600 hover:bg-gray-100'
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <CategoryIcon className={selectedCategory === categoryId ? 'text-primary' : 'text-gray-500'} size={18} />
+              <span className="capitalize text-sm">{categoryId.replace(/_/g, ' ')}</span>
+            </div>
+            <ChevronDown
+              className={`transform transition-transform duration-200 ${
+                selectedCategory === categoryId ? 'rotate-180 text-primary' : 'text-gray-400'
+              }`}
+              size={14}
+            />
+          </button>
+          <div
+            className={`overflow-hidden transition-all duration-200 ease-in-out ${
+              selectedCategory === categoryId ? 'max-h-96' : 'max-h-0'
+            }`}
+          >
+            {Object.keys(subCategories).map((subCategoryId) => (
+              <button
+                key={subCategoryId}
+                onClick={() => selectSubCategory(subCategoryId)}
+                className={`w-full text-left flex items-center px-4 py-2 ml-3 text-sm ${
+                  selectedSubCategory === subCategoryId
+                    ? 'text-primary bg-primary/5 font-medium'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                } rounded-md transition-colors capitalize`}
+              >
+                <span>{subCategoryId.replace(/_/g, ' ')}</span>
+              </button>
+            ))}
+          </div>
+        </motion.div>
+      );
+    })}
+  </div>
+);
 
 export default ProductPage;
