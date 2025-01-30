@@ -143,7 +143,7 @@ const ProductPage = () => {
   return (
     <div className="flex flex-col min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="relative h-[30vh] md:h-[35vh] flex items-center justify-center overflow-hidden mt-14 md:mt-0">
+      <section className="relative h-[30vh] md:h-[35vh] flex items-center justify-center overflow-hidden mt-14 md:mt-16">
         <motion.div
           initial={{ scale: 1.1 }}
           animate={{ scale: 1 }}
@@ -154,12 +154,12 @@ const ProductPage = () => {
             src="/images/hero/automation-3.jpg"
             alt="TIS Automation Products"
             fill
-            className="object-cover brightness-[0.6]"
+            className="object-cover brightness-[0.7]"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/40" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-black/20" />
         </motion.div>
-        <div className="relative container mx-auto px-4">
+        <div className="relative container mx-auto px-4 z-10">
           <div className="max-w-4xl mx-auto text-center">
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
